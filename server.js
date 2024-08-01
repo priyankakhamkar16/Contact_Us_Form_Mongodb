@@ -7,7 +7,7 @@ const port = 3003;
 const app = express();
 
 // Serve static files from the main project directory
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect(process.env.MONGODB_URI, {
