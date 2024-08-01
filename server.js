@@ -8,7 +8,7 @@ const app = express()
 app.use(express.static(__dirname))
 app.use(express.urlencoded({extended:true}))
 
-mongoose.connect('mongodb://127.0.0.1:27017/contact')
+mongoose.connect('mongodb+srv://Priyanka:Mongodb162001@cluster0.j9fjj2f.mongodb.net/')
 const db = mongoose.connection
 db.once('open',()=>{
     console.log("Mongodb connection successful")
