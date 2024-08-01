@@ -2,18 +2,18 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const port = 3003;
+const port = process.env.PORT || 3003;
 
 const app = express();
 
-// Serve static files from the main project directory
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname)));
 app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+
 const db = mongoose.connection;
 db.once('open', () => {
   console.log('Mongodb connection successful');
@@ -34,19 +34,24 @@ app.get('/', (req, res) => {
 });
 
 app.post('/post', async (req, res) => {
-  const { firstname, lastname, phone, country, message } = req.body;
-  const user = new Users({
-    firstname,
-    lastname,
-    phone,
-    country,
-    message
-  });
-  await user.save();
-  console.log(user);
-  res.send('Form Submission Successful');
+  try {
+    const { firstname, lastname, phone, country, message } = req.body;
+    const user = new Users({
+      firstname,
+      lastname,
+      phone,
+      country,
+      message
+    });
+    await user.save();
+    console.log(user);
+    res.send('Form Submission Successful');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred');
+  }
 });
 
 app.listen(port, () => {
-  console.log('Server Started');
+  console.log(`Server started on port ${port}`);
 });
