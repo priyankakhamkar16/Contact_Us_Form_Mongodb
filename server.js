@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const mongoose = require('mongoose')
 const path = require('path')
@@ -8,7 +9,7 @@ const app = express()
 app.use(express.static(__dirname))
 app.use(express.urlencoded({extended:true}))
 
-mongoose.connect('mongodb+srv://Priyanka:Mongodb162001@cluster0.j9fjj2f.mongodb.net/')
+mongoose.connect(process.env.MONGODB_URI)
 const db = mongoose.connection
 db.once('open',()=>{
     console.log("Mongodb connection successful")
