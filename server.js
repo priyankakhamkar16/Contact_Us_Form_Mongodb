@@ -2,21 +2,23 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const cors = require('cors');
 const port = process.env.PORT || 3003;
 
 const app = express();
 
+app.use(cors());
 app.use(express.static(path.join(__dirname)));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); // To handle JSON requests
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-});
-
-const db = mongoose.connection;
-db.once('open', () => {
+}).then(() => {
   console.log('Mongodb connection successful');
+}).catch(err => {
+  console.error('Mongodb connection error:', err);
 });
 
 const userSchema = new mongoose.Schema({
