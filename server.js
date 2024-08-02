@@ -39,6 +39,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Catch-all route for static files
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, req.path));
+});
+
 app.post('/post', async (req, res) => {
   try {
     const { firstname, lastname, phone, country, message } = req.body;
