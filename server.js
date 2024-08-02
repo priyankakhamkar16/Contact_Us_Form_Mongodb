@@ -8,9 +8,9 @@ const port = process.env.PORT || 3003;
 const app = express();
 
 app.use(cors());
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(__dirname)); // Serve static files from the main directory
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json()); // To handle JSON requests
+app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
