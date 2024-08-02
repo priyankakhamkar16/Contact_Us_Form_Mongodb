@@ -53,7 +53,7 @@ header {
 }
 
 .navbar .button-container button:hover {
-  background-color: #ddd;
+  background-color: #0056b3;
 }
 
 .contact h1 {
@@ -116,23 +116,24 @@ header {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #f0f3f7b9;
+  background-color: #fff;
   box-sizing: border-box;
   color: #333;
 }
+
 .form-group select:focus {
   outline: none;
   border-color: #007bff;
 }
+
 .form-group input,
 .form-group textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #f0f3f7b9;
+  background-color: #fff;
   box-sizing: border-box;
-  
 }
 
 .form-group input:focus,
