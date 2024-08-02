@@ -9,7 +9,7 @@ const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.static(path.join(__dirname))); // Serve static files from the main directory
+app.use(express.static(path.join(__dirname))); 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -37,11 +37,6 @@ const Users = mongoose.model('data', userSchema);
 // Routes
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-// Catch-all route for static files
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, req.path));
 });
 
 app.post('/post', async (req, res) => {
