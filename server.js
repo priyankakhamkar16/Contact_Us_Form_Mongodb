@@ -7,20 +7,23 @@ const port = process.env.PORT || 3003;
 
 const app = express();
 
+// Middleware
 app.use(cors());
-app.use(express.static(__dirname)); // Serve static files from the main directory
+app.use(express.static(path.join(__dirname))); // Serve static files from the main directory
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
-  console.log('Mongodb connection successful');
+  console.log('MongoDB connection successful');
 }).catch(err => {
-  console.error('Mongodb connection error:', err);
+  console.error('MongoDB connection error:', err);
 });
 
+// Schema and Model
 const userSchema = new mongoose.Schema({
   firstname: String,
   lastname: String,
@@ -31,6 +34,7 @@ const userSchema = new mongoose.Schema({
 
 const Users = mongoose.model('data', userSchema);
 
+// Routes
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
@@ -54,6 +58,7 @@ app.post('/post', async (req, res) => {
   }
 });
 
+// Start server
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
